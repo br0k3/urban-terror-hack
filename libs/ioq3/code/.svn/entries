@@ -1,0 +1,82 @@
+10
+
+dir
+995
+svn://svn.icculus.org/quake3/trunk/code
+svn://svn.icculus.org/quake3
+
+
+
+2006-11-30T08:01:43.935567Z
+995
+coyote
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+edf5b092-35ff-0310-97b2-ce42778d08ea
+
+q3_ui
+dir
+
+unix
+dir
+
+SDL12
+dir
+
+jpeg-6
+dir
+
+libs
+dir
+
+AL
+dir
+
+libcurl
+dir
+
+tools
+dir
+
+win32
+dir
+
+renderer
+dir
+
+server
+dir
+
+game
+dir
+
+qcommon
+dir
+
+null
+dir
+
+botlib
+dir
+
+cgame
+dir
+
+ui
+dir
+
+client
+dir
+

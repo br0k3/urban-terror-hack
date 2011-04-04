@@ -1,0 +1,92 @@
+#!SCons
+
+"""	Scons script for build urth sources. """
+
+__author__ = "*nixCoders team"
+__url__ = "http://www.nixcoders.org/"
+__copyright__ = "Copyright (C) 2007 - *nixCoders team"
+__license__ = """
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2, or (at your option)
+	any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software Foundation,
+	Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+"""
+
+Import('env')
+
+# Set compile flags
+env.Append(CCFLAGS=Split('-Wall -O3 -fvisibility=hidden -m32 -march=i686'))
+#env.Append(CCFLAGS=Split('-Wall -fvisibility=hidden -m32 -ggdb3'))
+env.Append(LINKFLAGS=Split('-m32 -static -s'))
+
+env.Append(CPPDEFINES=
+	{
+		'URTH_VERSION': '\\"$URTH_VERSION\\"',
+		'URTH_DEBUG': '1'
+	}
+)
+env.Append(CPPPATH=['#libs'])
+
+# If libraries is going to be download/build, no need to check for them
+if (not 'libs' in COMMAND_LINE_TARGETS) and (not GetOption('clean')):
+	conf = Configure(env)
+
+	# Check for all needed libraries
+	checkLibs = [
+		conf.CheckLibWithHeader('ghf', 'ghf/ghf.h', 'C++', autoadd=True),
+		conf.CheckLibWithHeader('elf', 'libelf.h', 'C', autoadd=True),
+		conf.CheckLibWithHeader('bfd', 'bfd.h', 'C', autoadd=True),
+		conf.CheckLibWithHeader('opcodes', 'dis-asm.h', 'C', autoadd=True),
+	]
+	
+	env = conf.Finish()
+	
+	for check in checkLibs:
+		if not check:
+			print 'Error: One or more librairies is missing. You can check config.log file.'
+			print 'Install it yourself, or use "scons libs" to automatically download/build these libraries.'
+			Exit(1)
+
+# Build urth shared library
+urthSources = Split("""
+	CGame.cpp
+	hook.cpp
+	g_functions.cpp
+	main.cpp
+	Qvm.cpp
+	UIGame.cpp
+	Urt.cpp
+""")
+
+# TODO: Find a better place for that, maybe libs/SConstruct
+sdkSources = [
+	env.SharedObject(
+		target='#build/q_math',
+		source='#libs/ioq3/code/qcommon/q_math.c'
+	),
+	env.SharedObject(
+		target='#build/q_shared',
+		source='#libs/ioq3/code/qcommon/q_shared.c'
+	),
+	env.SharedObject(
+		target='#build/bg_misc',
+		source='#libs/ioq3/code/game/bg_misc.c'
+	)
+]
+
+urthLib = env.SharedLibrary(
+	target='URTH',
+	source=[urthSources, sdkSources],
+)
+
+env.Default(urthLib)
+env.Clean(urthLib, '#build')

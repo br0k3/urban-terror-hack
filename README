@@ -1,0 +1,15 @@
+URTH - Urban Terror Hack
+
+Works for Urban Terror <= 4.2 standalone version.
+
+Features:
+- Hack toggle key (NUM_LOCK)
+- G_KEY is auto fire enabler
+- Aimbot (only aim at head)
+- Wallhack
+- Ping prediction
+- Auto vecz
+- Chams
+
+Every features is allways on. No cvar/command to set them. OpenSource code,
+so you can do it yourself.
