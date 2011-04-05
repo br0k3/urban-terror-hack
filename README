@@ -1,6 +1,7 @@
-URTH - Urban Terror Hack 0.1-5
+URTH - Urban Terror Hack
+v0.1-5
 
-Works for Urban Terror <= 4.2 standalone version.
+Works for Urban Terror >= 4.1 standalone version.
 
 Features:
 - Hack toggle key (NUM_LOCK)
@@ -11,5 +12,19 @@ Features:
 - Auto vecz
 - Chams
 
-Every features is allways on. No cvar/command to set them. OpenSource code,
+Every features is always on, when toggle buttin is set. No cvar/command to set them. OpenSource code,
 so you can do it yourself.
+
+---------------------------------------------------------------------
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
